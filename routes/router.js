@@ -3,7 +3,6 @@ const { celebrate, Joi } = require('celebrate');
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
 const auth = require('../middlewares/auth');
-const { REGEXP_URL } = require('../utils/constans');
 const { login, createUser } = require('../controllers/users');
 const NotFound = require('../errors/NotFound');
 
@@ -11,11 +10,9 @@ router.post(
   '/signup',
   celebrate({
     body: Joi.object().keys({
-      name: Joi.string().min(2).max(30),
-      about: Joi.string().min(2).max(30),
-      avatar: Joi.string().pattern(REGEXP_URL),
       email: Joi.string().required().email(),
       password: Joi.string().required(),
+      name: Joi.string().min(2).max(30),
     }),
   }),
   createUser,
