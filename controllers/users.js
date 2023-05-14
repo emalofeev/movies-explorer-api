@@ -12,7 +12,7 @@ function findUser(res, next, userId) {
   return User.findById(userId)
     .then((user) => {
       if (!user) {
-        return next(new NotFound('Пользователь по указанному _id не найден'));
+        return next(new NotFound('Пользователь по указанному id не найден'));
       }
       return res.send(user);
     })
@@ -35,7 +35,7 @@ function updateUser(req, res, next, property) {
       if (err instanceof mongoose.Error.ValidationError) {
         next(
           new BadRequest(
-            'Переданы некорректные данные при обновлении профиля/аватара',
+            'Переданы некорректные данные при обновлении данных пользователя',
           ),
         );
         return;
@@ -50,17 +50,13 @@ module.exports.getCurrentUser = (req, res, next) => {
 };
 
 module.exports.createUser = (req, res, next) => {
-  const {
-    name, about, avatar, email, password,
-  } = req.body;
+  const { email, password, name } = req.body;
   bcrypt
     .hash(password, 10)
     .then((hash) => User.create({
-      name,
-      about,
-      avatar,
       email,
       password: hash,
+      name,
     }))
     .then((user) => {
       const objUser = user.toObject();
