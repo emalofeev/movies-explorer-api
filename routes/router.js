@@ -7,7 +7,7 @@ const { login, createUser } = require('../controllers/users');
 const NotFound = require('../errors/NotFound');
 
 router.post(
-  '/signup',
+  '/api/signup',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email(),
@@ -18,7 +18,7 @@ router.post(
   createUser,
 );
 router.post(
-  '/signin',
+  '/api/signin',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email(),
@@ -29,8 +29,8 @@ router.post(
 );
 
 router.use(auth);
-router.use('/users', usersRouter);
-router.use('/movies', moviesRouter);
+router.use('/api/users', usersRouter);
+router.use('/api/movies', moviesRouter);
 router.use('*', (req, res, next) => {
   next(new NotFound('Страница не найдена'));
 });
