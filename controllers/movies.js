@@ -7,16 +7,41 @@ const { STATUS_CODE_CREATED } = require('../utils/constans');
 
 module.exports.getMovies = (req, res, next) => {
   Movie.find({})
-    .populate(['owner', 'likes'])
+    .populate(['owner'])
     .then((movies) => res.send(movies))
     .catch(next);
 };
 
 module.exports.createMovie = (req, res, next) => {
-  const { name, link } = req.body;
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail,
+    movieId,
+    nameRU,
+    nameEN,
+  } = req.body;
   const owner = req.user._id;
 
-  Movie.create({ name, link, owner })
+  Movie.create({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail,
+    movieId,
+    nameRU,
+    nameEN,
+    owner,
+  })
     .then((movie) => {
       movie
         .populate('owner')
@@ -26,7 +51,9 @@ module.exports.createMovie = (req, res, next) => {
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
         next(
-          new BadRequest('Переданы некорректные данные при создании карточки'),
+          new BadRequest(
+            'Переданы некорректные данные при добавлении информации о фильме',
+          ),
         );
         return;
       }
@@ -38,11 +65,15 @@ module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .then((movie) => {
       if (!movie) {
-        next(new NotFound('Карточка по указанному _id не найдена'));
+        next(new NotFound('Фильм по указанному id не найден'));
         return {};
       }
       if (movie.owner._id.toString() !== req.user._id) {
-        next(new Forbidden('Попытка удалить чужую карточку'));
+        next(
+          new Forbidden(
+            'Попытка удалить информацию о фильме добавленную другим пользователем',
+          ),
+        );
         return {};
       }
       return Movie.deleteOne().then(res.send(movie));
