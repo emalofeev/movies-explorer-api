@@ -9,6 +9,8 @@ const CREATE_USER_CONF_REQUEST = 'При регистрации указан ema
 const CREATE_MOVIE_BAD_REQUEST = 'Переданы некорректные данные при добавлении информации о фильме';
 const DELETE_MOVIE_NOT_FOUND = 'Фильм по указанному id не найден';
 const DELETE_MOVIE_FORBIDDEN = 'Попытка удалить информацию о фильме добавленную другим пользователем';
+const PAGE_USER_NOT_FOUND = 'Страница не найдена';
+const SERVER_ERROR = 'Сервер сейчас упадёт';
 
 module.exports = {
   REGEXP_URL,
@@ -22,4 +24,6 @@ module.exports = {
   CREATE_MOVIE_BAD_REQUEST,
   DELETE_MOVIE_NOT_FOUND,
   DELETE_MOVIE_FORBIDDEN,
+  PAGE_USER_NOT_FOUND,
+  SERVER_ERROR,
 };
