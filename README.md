@@ -1,7 +1,24 @@
-# movies-explorer-api
-https://malofeevdiploma.nomoredomains.monster/api/
+# Дипломный проект (backend): Movies-explorer-api
 
-Ссылки на проект
-IP 51.250.88.50
+## Обзор
+
+* Описание
+* Технологии
+* Информация
+
+### Описание
+
+Дипломный проект (backend) "Movies-explorer-api" - это клиент-серверное приложение на Express.js. Разработана возможность регистрации, аутентификации и авторизации пользователей. Реализована функциональность редактирования данных пользователя, добавления/удаления информации о фильмах и её редактирование. База данных - MongoDB.
+
+### Технологии
+
+* NodeJS
+* Express.js
+* MongoDB
+* PM2
+
+### Информация
 
 Backend https://malofeevdiploma.nomoredomains.monster/api/
+
+IP 51.250.88.50
