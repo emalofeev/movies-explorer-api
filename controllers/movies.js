@@ -73,7 +73,7 @@ module.exports.deleteMovie = (req, res, next) => {
         next(new Forbidden(DELETE_MOVIE_FORBIDDEN));
         return {};
       }
-      return Movie.deleteOne().then(() => res.send(movie));
+      return movie.deleteOne().then(() => res.send(movie));
     })
     .catch(next);
 };
